@@ -1,7 +1,7 @@
 # Agentic Systems
 
-1) Understanding Agentic AI Architecture
-https://www.srajdev.com/understanding-agentic-ai-architecture/
+## 1) Understanding Agentic AI Architecture
+source: https://www.srajdev.com/understanding-agentic-ai-architecture/
 
 **Key Takeaways:** <br>
 
@@ -96,6 +96,36 @@ a) Streaming Last Layer: For user-facing agents, making the last layer of the LL
 b) Prompt Optimization: Prompts and results can often be identical across different users. To reduce latency, prompt caching can be employed to reuse previously computed results whenever possible. By caching common prompts, agents can bypass unnecessary recomputation, delivering faster responses. <br>
 
 c) Parallel Execution: When possible, agents should run in parallel rather than sequentially. For example, a sentiment analysis and a technical analysis could be conducted simultaneously, reducing the total processing time for a task. <br>
+
+## 2) Agents
+source: https://huyenchip.com//2025/01/07/agents.html
+
+**Key Takeaways:** <br>
+
+**a) Agent Overview:** <br>
+
+i) An agent is defined by the environment it operates in and the set of tools it has access to. In an AI-powered agent, the AI model is the brain that leverages its tools and feedback from the environment to plan how best to accomplish a task. <br>
+
+ii) While the concept of “agents” sounds novel, they are built upon many concepts that have been used since the early days of LLMs, including self-critique, chain-of-thought, and structured outputs. <br>
+
+iii) Given an environment, the success of an agent in an environment depends on the tool it has access to and the strength of its AI planner. <br>
+
+**b) Tools:** <br>
+
+i) By itself, a model can typically perform one action—an LLM can generate text and an image generator can generate images. External tools make an agent vastly more capable. <br>
+
+ii) Depending on the agent’s environment, there are many possible tools. Here are ***three categories*** of tools that you might want to consider: <br> 
+
+***1) Knowledge augmentation (i.e., context construction):*** <br>
+
+a) Accessing Enterprise-specific private knowledge-base using tools like text retriever, image retriever, SQL executor, internal people search, inventory API that returns the status of different products, Slack retrieval, an email reader. <br>
+
+b) Web browsing using tools like search APIs, news APIs, GitHub APIs, or social media APIs <br>
+
+***2) Capability extension:*** <br>
+
+
+***3) Tools that let your agent act upon its environment:*** <br>
 
 
 
