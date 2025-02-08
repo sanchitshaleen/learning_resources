@@ -124,8 +124,51 @@ b) Web browsing using tools like search APIs, news APIs, GitHub APIs, or social 
 
 ***2) Capability extension:*** <br>
 
+a) Simple tools that can significantly boost a model’s capability include a calculator, calendar, timezone converter, unit converter (e.g., from lbs to kg), and translator that can translate to and from the languages that the model isn’t good at. <br>
+
+b) More complex but powerful tools are code interpreters. Instead of training a model to understand code, you can give it access to a code interpreter to execute a piece of code, return the results, or analyze the code’s failures. <br>
+
+c) Tool use can significantly boost a model’s performance compared to just prompting or even finetuning. Chameleon (Lu et al., 2023) shows that a GPT-4-powered agent, augmented with a set of 13 tools, can outperform GPT-4 alone on several benchmarks. Examples of tools this agent used are knowledge retrieval, a query generator, an image captioner, a text detector, and Bing search. <br>
 
 ***3) Tools that let your agent act upon its environment:*** <br>
+
+a) Tools can also perform write actions, making changes to the data sources. An SQL executor can retrieve a data table (read) and change or delete the table (write). An email API can read an email but can also respond to it. A banking API can retrieve your current balance, but can also initiate a bank transfer. <br>
+
+b) Write actions enable a system to do more. They can enable you to automate the whole customer outreach workflow: researching potential customers, finding their contacts, drafting emails, sending first emails, reading responses, following up, extracting orders, updating your databases with new orders, etc <br>
+
+**c) Planning:** <br>
+
+i) Given a task, there are many possible ways to solve it, but not all of them will lead to a successful outcome. <br>
+
+ii) To avoid fruitless execution, planning should be decoupled from execution. You ask the agent to first generate a plan, and only after this plan is validated is it executed. <br>
+
+iii) The plan can be validated using heuristics. For example, one simple heuristic is to eliminate plans with invalid actions. If the generated plan requires a Google search and the agent doesn’t have access to Google Search, this plan is invalid. <br>
+
+iv) A plan can also be validated using AI judges. You can ask a model to evaluate whether the plan seems reasonable or how to improve it. <br>
+
+v) If the plan consists of external tools, function calling will be invoked. Outputs from executing this plan will then again need to be evaluated. Note that the generated plan doesn’t have to be an end-to-end plan for the whole task. It can be a small plan for a subtask. <br>
+
+<img width="829" alt="Screenshot 2025-02-07 at 11 33 04 PM" src="https://github.com/user-attachments/assets/8bf72a89-2983-4169-9ceb-2b25ec64976b" /> <br>
+
+vi) To summarize, solving a task typically involves the following processes. Note that reflection isn’t mandatory for an agent, but it’ll significantly boost the agent’s performance. <br>
+
+1) Plan generation: come up with a plan for accomplishing this task. A plan is a sequence of manageable actions, so this process is also called task decomposition. <br>
+
+2) Reflection and error correction: evaluate the generated plan. If it’s a bad plan, generate a new one. <br>
+
+3) Execution: take actions outlined in the generated plan. This often involves calling specific functions. <br>
+
+4) Reflection and error correction: upon receiving the action outcomes, evaluate these outcomes and determine whether the goal has been accomplished. Identify and correct mistakes. If the goal is not completed, generate a new plan. <br>
+
+vii) ***Foundation Models as Planners:*** <br>
+
+1) While there is a lot of anecdotal evidence that LLMs are poor planners, it’s unclear whether it’s because we don’t know how to use LLMs the right way or because LLMs, fundamentally, can’t plan. <br>
+
+2) Planning, at its core, is a search problem. You search among different paths towards the goal, predict the outcome (reward) of each path, and pick the path with the most promising outcome. Often, you might determine that no path exists that can take you to the goal. <br>
+
+
+
+
 
 
 
