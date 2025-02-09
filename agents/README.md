@@ -252,6 +252,19 @@ ix) ***Tool Selection*** <br>
 
 1) When evaluating an agent framework, evaluate what planners and tools it supports. Different frameworks might focus on different categories of tools. For example, AutoGPT focuses on social media APIs (Reddit, X, and Wikipedia), whereas Composio focuses on enterprise APIs (Google Apps, GitHub, and Slack). <br>
 
+2) There’s no foolproof guide on how to select the best set of tools. Agent literature consists of a wide range of tool inventories. For example:
+
+Toolformer finetuned GPT-J to learn 5 tools. <br>
+Chameleon uses 13 tools. <br>
+Gorilla attempted to prompt agents to select the right API call among 1,645 APIs <br>
+
+3) Like many other decisions while building AI applications, tool selection requires experimentation and analysis. Here are a few things you can do to help you decide: <br>
+
+3.1) Compare how an agent performs with different sets of tools. <br>
+3.2) Do an ablation study to see how much the agent’s performance drops if a tool is removed from its inventory. If a tool can be removed without a performance drop, remove it. <br>
+3.3) Look for tools that the agent frequently makes mistakes on. If a tool proves too hard for the agent to use—for example, extensive prompting and even finetuning can’t get the model to learn to use it—change the tool. <br>
+3.4) Plot the distribution of tool calls to see what tools are most used and what tools are least used. <br>
+
 
 
 
