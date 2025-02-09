@@ -166,6 +166,96 @@ vii) ***Foundation Models as Planners:*** <br>
 
 2) Planning, at its core, is a search problem. You search among different paths towards the goal, predict the outcome (reward) of each path, and pick the path with the most promising outcome. Often, you might determine that no path exists that can take you to the goal. <br>
 
+3) Even if AI can’t plan, it can still be a part of a planner. It might be possible to augment an LLM with a search tool and state tracking system to help it plan. <br>
+
+vii) ***Plan Generation:*** <br>
+
+1) Tips for making an agent better at planning. <br>
+
+1.1) Write a better system prompt with more examples. <br>
+1.2) Give better descriptions of the tools and their parameters so that the model understands them better.<br>
+1.3) Rewrite the functions themselves to make them simpler, such as refactoring a complex function into two simpler functions. <br>
+1.4) Use a stronger model. In general, stronger models are better at planning. <br>
+1.5) Finetune a model for plan generation. <br>
+
+2) Function Calling <br>
+
+A tool is a function. Invoking a tool is, therefore, often called function calling. Different model APIs work differently, but in general, function calling works as follows: <br>
+
+2.1) Create a tool inventory. Declare all the tools that you might want a model to use. Each tool is described by its execution entry point (e.g., its function name), its parameters, and its documentation (e.g., what the function does and what parameters it needs). <br>
+2.2) Specify what tools the agent can use for a query.
+Because different queries might need different tools, many APIs let you specify a list of declared tools to be used per query. Some let you control tool use further by the following settings: <br>
+***required***: the model must use at least one tool. <br>
+***none***: the model shouldn’t use any tool. <br>
+***auto***: the model decides which tools to use. <br>
+
+<img width="878" alt="Screenshot 2025-02-08 at 8 33 31 PM" src="https://github.com/user-attachments/assets/0acd534a-b5f8-43dd-813a-311f472c4845" />
+
+<br>
+
+3) Planning Granularity <br>
+
+3.1) There’s a planning/execution tradeoff. A detailed plan is harder to generate, but easier to execute. A higher-level plan is easier to generate, but harder to execute. <br>
+
+3.2) An approach to circumvent this tradeoff is to plan hierarchically. First, use a planner to generate a high-level plan, such as a quarter-to-quarter plan. Then, for each quarter, use the same or a different planner to generate a month-to-month plan. <br>
+
+3.3) Using more natural language helps your plan generator become robust to changes in tool APIs. If your model was trained mostly on natural language, it’ll likely be better at understanding and generating plans in natural language and less likely to hallucinate. <br>
+
+3.4) The downside of this approach is that you need a translator to translate each natural language action into executable commands. However, translating is a much simpler task than planning and can be done by weaker models with a lower risk of hallucination. <br>
+
+4) Complex Plans <br>
+
+The order in which actions can be executed is called a control flow. The list below provides an overview of each control flow, including sequential for comparison: <br>
+
+4.1) ***Sequential*** <br>
+Executing task B after task A is complete, possibly because task B depends on task A. For example, the SQL query can only be executed after it’s been translated from the natural language input. <br>
+
+4.2) ***Parallel***<br>
+Executing tasks A and B at the same time. For example, given the query “Find me best-selling products under $100”, an agent might first retrieve the top 100 best-selling products and, for each of these products, retrieve its price.<br>
+
+4.3) ***If statement*** <br>
+Executing task B or task C depending on the output from the previous step. For example, the agent first checks NVIDIA’s earnings report. Based on this report, it can then decide to sell or buy NVIDIA stocks. Anthropic’s post calls this pattern “routing”.<br>
+
+4.4) ***For loop*** <br>
+Repeat executing task A until a specific condition is met. For example, keep on generating random numbers until a prime number. <br>
+
+<img width="830" alt="Screenshot 2025-02-08 at 8 43 30 PM" src="https://github.com/user-attachments/assets/0ffee40f-b2fc-47d1-a7b4-797ddd75eb01" />
+
+<br>
+
+viii) ***Reflection and error correction*** <br>
+
+1) Reflection and error correction are two different mechanisms that go hand in hand. Reflection generates insights that help uncover errors to be corrected. While reflection isn’t strictly necessary for an agent to operate, it’s necessary for an agent to succeed. There are many places during a task process where reflection can be useful: <br>
+
+1.1) After receiving a user query to evaluate if the request is feasible. <br>
+1.2) After the initial plan generation to evaluate whether the plan makes sense.<br>
+1.3) After each execution step to evaluate if it’s on the right track. <br>
+1.4) After the whole plan has been executed to determine if the task has been accomplished. <br>
+
+2) ReAct (Reason + Act) <br>
+2.1) Interleaving reasoning and action has become a common pattern for agents. <br>
+2.2) “Reasoning” encompasses both planning and reflection. At each step, the agent is asked to explain its thinking (planning), take actions, then analyze observations (reflection), until the task is considered finished by the agent <br>
+
+<img width="711" alt="Screenshot 2025-02-08 at 8 54 25 PM" src="https://github.com/user-attachments/assets/ff8476f5-d15f-4668-97f5-604cce474ab0" />
+
+<br>
+
+3) Reflexion Agent Framework <br>
+3.1) In this framework, reflection is separated into two modules: an evaluator that evaluates the outcome and a self-reflection module that analyzes what went wrong.  <br>
+
+3.2) Below example covers Reflexion Agents in action. "trjectory" refers to a "plan". At each step, after evaluation and self-reflection, the agent proposes a new trajectory <br>
+<img width="856" alt="Screenshot 2025-02-08 at 8 59 02 PM" src="https://github.com/user-attachments/assets/b0fa2d81-5d3c-44f6-81b9-e7fb61f6cda8" />
+
+
+
+
+
+
+
+
+
+
+
 
 
 
