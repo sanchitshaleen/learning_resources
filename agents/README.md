@@ -265,6 +265,59 @@ Gorilla attempted to prompt agents to select the right API call among 1,645 APIs
 3.3) Look for tools that the agent frequently makes mistakes on. If a tool proves too hard for the agent to use—for example, extensive prompting and even finetuning can’t get the model to learn to use it—change the tool. <br>
 3.4) Plot the distribution of tool calls to see what tools are most used and what tools are least used. <br>
 
+**d) Agent failure modes and evaluation:** <br>
+
+To evaluate an agent, identify its failure modes and measure how often each of these failure modes happens. <br>
+
+i) ***Planning Failures*** <br>
+
+1) The agent might generate a plan with one or more of these errors. <br>
+
+1.1) Invalid tool: For example, it generates a plan that contains bing_search, which isn’t in the tool inventory. <br>
+
+1.2) Valid tool, invalid parameters: For example, it calls lbs_to_kg with two parameters, but this function requires only one parameter, lbs <br>
+
+1.3) Valid tool, incorrect parameter values: For example, it calls lbs_to_kg with one parameter, lbs, but uses the value 100 for lbs when it should be 120. <br>
+
+2) How to evaluate an agent for Planning Failures: <br>
+To evaluate an agent for planning failures, one option is to create a planning dataset where each example is a tuple (task, tool inventory). For each task, use the agent to generate a K number of plans. Compute the following metrics: <br>
+
+2.1) Out of all generated plans, how many are valid? <br>
+2.2) For a given task, how many plans does the agent have to generate to get a valid plan? <br>
+2.3) Out of all tool calls, how many are valid? <br>
+2.4) How often are invalid tools called? <br>
+2.5) How often are valid tools called with invalid parameters? <br>
+2.6) How often are valid tools called with incorrect parameter values? <br>
+
+3) Analyze the agent’s outputs for patterns. What types of tasks does the agent fail more on? Do you have a hypothesis why? What tools does the model frequently make mistakes with? Some tools might be harder for an agent to use. You can improve an agent’s ability to use a challenging tool by better prompting, more examples, or finetuning. If all fail, you might consider swapping out this tool for something easier to use. <br>
+
+ii) ***Tool Failures*** <br>
+
+1) Tool failures happen when the correct tool is used, but the tool output is wrong. One failure mode is when a tool just gives the wrong outputs. For example, an image captioner returns a wrong description, or an SQL query generator returns a wrong SQL query. <br>
+
+2) If the agent generates only high-level plans and a translation module is involved in translating from each planned action to executable commands, failures can happen because of translation errors. <br>
+
+3) Tool failures are tool-dependent. Each tool needs to be tested independently. Always print out each tool call and its output so that you can inspect and evaluate them. If you have a translator, create benchmarks to evaluate it. <br>
+
+4) Detecting missing tool failures requires an understanding of what tools should be used. If your agent frequently fails on a specific domain, this might be because it lacks tools for this domain. Work with human domain experts and observe what tools they would use. <br>
+
+iii) ***Efficiency*** <br>
+
+Here are a few things you might want to track to evaluate an agent’s efficiency: <br>
+
+1) How many steps does the agent need, on average, to complete a task? <br>
+2) How much does the agent cost, on average, to complete a task? <br>
+3) How long does each action typically take? Are there any actions that are especially time-consuming or expensive? <br>
+
+iv) ***Conclusion*** <br>
+
+1) In an AI-powered agent, the AI model is the brain that leverages its tools and feedback from the environment to plan how best to accomplish a task. Access to tools makes a model vastly more capable, so the agentic pattern is inevitable. <br>
+
+2) While the concept of “agents” sounds novel, they are built upon many concepts that have been used since the early days of LLMs, including self-critique, chain-of-thought, and structured outputs. <br>
+
+3) The agentic pattern often deals with information that exceeds a model’s context limit. A memory system that supplements the model’s context in handling information can significantly enhance an agent’s capabilities. <br>
+
+
 
 
 
