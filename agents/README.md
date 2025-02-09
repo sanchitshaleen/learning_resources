@@ -246,6 +246,12 @@ viii) ***Reflection and error correction*** <br>
 3.2) Below example covers Reflexion Agents in action. "trjectory" refers to a "plan". At each step, after evaluation and self-reflection, the agent proposes a new trajectory <br>
 <img width="856" alt="Screenshot 2025-02-08 at 8 59 02 PM" src="https://github.com/user-attachments/assets/b0fa2d81-5d3c-44f6-81b9-e7fb61f6cda8" />
 
+<br>
+
+ix) ***Tool Selection*** <br>
+
+1) When evaluating an agent framework, evaluate what planners and tools it supports. Different frameworks might focus on different categories of tools. For example, AutoGPT focuses on social media APIs (Reddit, X, and Wikipedia), whereas Composio focuses on enterprise APIs (Google Apps, GitHub, and Slack). <br>
+
 
 
 
